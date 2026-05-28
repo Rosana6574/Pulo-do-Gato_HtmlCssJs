@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Calcular Consumo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBlue: '#1565C0',
+            lightGrayBg: '#F5F7F9',
+            infoBlue: '#42A5F5'
+          }
+        }
+      }
+    }
+</script>
+
+<style data-purpose="typography">
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #F5F7F9;
+}
+</style>
+
+<style data-purpose="custom-styling">
+.card-shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+input::placeholder {
+  color: #9CA3AF;
+}
+</style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <header class="bg-brandBlue h-16 flex items-center px-4 relative">
+        <button 
+          onclick="window.location.href='telaprincipal.html'"
+          class="absolute left-4 cursor-pointer"
+          data-purpose="back-navigation">
+          
+          <svg fill="none" height="24" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        
+        <h1 class="w-full text-center text-white text-xl font-medium">Calcular consumo</h1>
+    </header>
+    
+    <main class="flex-grow p-4">
+        <div class="bg-white rounded-2xl p-6 mt-4 card-shadow" data-purpose="calculation-form-container">
+            <form class="space-y-6" onsubmit="calcularConsumo(event)">
+                
+                <div class="space-y-2">
+                    <div class="flex items-center gap-1">
+                        <label class="text-sm font-semibold text-gray-700">
+                            Dia da medição da última conta
+                        </label>
+
+                        <button onclick="window.location.href='informacooeess.html'" type="button" class="hover:scale-110 transition-transform duration-300">
+                            <svg class="text-infoBlue w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="relative">
+                        <input 
+                        id="dataMedicao"
+                        class="w-full h-12 px-4 border border-gray-200 rounded-xl focus:ring-brandBlue focus:border-brandBlue" 
+                        placeholder="00/00/0000" 
+                        type="text"
+                        maxlength="10"/>
+
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                            <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+                                <rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+                                <line x1="16" x2="16" y1="2" y2="6"></line>
+                                <line x1="8" x2="8" y1="2" y2="6"></line>
+                                <line x1="3" x2="21" y1="10" y2="10"></line>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-2">
+                    <div class="flex items-center gap-1">
+                        <label class="text-sm font-semibold text-gray-700">
+                            Valor em kWh da última conta
+                        </label>
+
+                        <button onclick="window.location.href='informacooeess.html'" type="button" class="hover:scale-110 transition-transform duration-300">
+                            <svg class="text-infoBlue w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <input id="ultimaConta" class="w-full h-12 px-4 border border-gray-200 rounded-xl focus:ring-brandBlue focus:border-brandBlue" placeholder="Ex: 1200" type="number"/>
+                </div>
+                
+                <div class="space-y-2">
+                    <div class="flex items-center gap-1">
+                        <label class="text-sm font-semibold text-gray-700">
+                            Valor atual de kWh
+                        </label>
+
+                        <button onclick="window.location.href='informacooeess.html'" type="button" class="hover:scale-110 transition-transform duration-300">
+                            <svg class="text-infoBlue w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <input id="valorAtual" class="w-full h-12 px-4 border border-gray-200 rounded-xl" placeholder="Ex: 1345" type="number"/>
+                </div>
+                
+                <div class="pt-10">
+                    <button class="w-full bg-brandBlue hover:bg-blue-700 text-white font-semibold py-4 rounded-xl transition-colors duration-200" type="submit">
+                        Calcular
+                    </button>
+                </div>
+            
+            </form>
+        </div>
+    </main>
+    <script>
+
+    document.getElementById("dataMedicao").addEventListener("input", function(e) {
+      let valor = e.target.value.replace(/\D/g, "");
+
+      if (valor.length > 2) {
+        valor = valor.slice(0,2) + "/" + valor.slice(2);
+      }
+
+      if (valor.length > 5) {
+        valor = valor.slice(0,5) + "/" + valor.slice(5,9);
+      }
+
+    e.target.value = valor;
+    });
+
+    function calcularConsumo(event){
+    event.preventDefault();
+
+    const dataMedicao = document.getElementById("dataMedicao").value;
+    const ultimaConta = parseFloat(document.getElementById("ultimaConta").value);
+    const valorAtual = parseFloat(document.getElementById("valorAtual").value);
+
+    if(!dataMedicao || isNaN(ultimaConta) || isNaN(valorAtual)){
+        alert("Preencha todos os campos.");
+        return;
+    }
+
+    if(valorAtual < ultimaConta){
+        alert("O valor atual não pode ser menor que o da última conta.");
+        return;
+    }
+
+    const consumo = valorAtual - ultimaConta;
+    const tarifa = 0.85;
+    const valorConta = consumo * tarifa;
+
+    localStorage.setItem("consumo", consumo);
+    localStorage.setItem("valorConta", valorConta.toFixed(2));
+    localStorage.setItem("dataMedicao", dataMedicao);
+
+    // Histórico
+    let historico = JSON.parse(localStorage.getItem("historicoConsumo")) || [];
+
+    historico.push({
+        data: dataMedicao,
+        consumo: consumo
+    });
+
+    localStorage.setItem("historicoConsumo", JSON.stringify(historico));
+
+    window.location.href = "resultadocalcular.html";
+    }
+
+    localStorage.setItem(
+    "valorConta",
+    valorConta.toFixed(2)
+    );
+    </script>
+
+</body></html>

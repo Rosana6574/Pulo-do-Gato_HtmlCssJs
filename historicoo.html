@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Histórico de Consumo</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blue: '#1565C0', // Based on the visual blue from image
+              lightBlue: '#E3F2FD',
+              bgGray: '#F5F7FA'
+            }
+          }
+        }
+      }
+    }
+</script>
+<style data-purpose="layout">
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #F5F7FA;
+  }
+  .card-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head>
+<body class="min-h-screen" class="transition-opacity duration-500">
+  <header class="bg-[#1565C0] text-white p-4 flex items-center sticky top-0 z-50">
+    <a href="telaprincipal.html" aria-label="Voltar" class="mr-4">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+      </svg>
+    </a>
+    <h1 class="text-xl font-semibold flex-grow text-center mr-8">Histórico de consumo</h1>
+  </header>
+  
+  <main class="p-4 space-y-4">
+    <div class="flex bg-white rounded-full p-1 shadow-sm border border-gray-200" data-purpose="category-toggle">
+
+      <button 
+        onclick="animarEIr('historico.html')"
+        class="flex-1 flex items-center justify-center py-2 px-4 rounded-full text-gray-400 font-medium transition-all duration-500 hover:bg-blue-100 hover:text-[#1565C0]">
+        Energia
+      </button>
+      <button 
+        class="flex-1 flex items-center justify-center py-2 px-4 rounded-full bg-[#1565C0] text-white font-medium transition-all duration-500">
+        Água
+      </button>
+
+    </div>
+
+    <div class="bg-white rounded-2xl p-5 card-shadow" data-purpose="chart-container">
+      <h2 class="text-lg font-bold text-gray-800 mb-6">Consumo por mês</h2>
+      <div class="flex h-48 items-end space-x-4 relative">
+        <div class="flex flex-col-reverse justify-between h-full text-[10px] text-gray-400 pb-6 pr-2">
+          <span>0</span>
+          <span>45</span>
+          <span>90</span>
+          <span>135</span>
+          <span>180</span>
+        </div>
+        
+        <div class="flex-1 flex justify-around items-end h-full">
+          <!-- Jan -->
+          <div class="flex flex-col items-center flex-1">
+            <div class="bg-brand-blue w-full max-w-[40px] h-20 rounded-sm"></div>
+            <span class="text-xs text-gray-400 mt-2">Jan</span>
+          </div>
+          <!-- Fev -->
+          <div class="flex flex-col items-center flex-1">
+            <div class="bg-brand-blue w-full max-w-[40px] h-32 rounded-sm"></div>
+            <span class="text-xs text-gray-400 mt-2">Fev</span>
+          </div>
+          <!-- Mar -->
+          <div class="flex flex-col items-center flex-1">
+            <div class="bg-brand-blue w-full max-w-[40px] h-40 rounded-sm"></div>
+            <span class="text-xs text-gray-400 mt-2">Mar</span>
+          </div>
+          <!-- Abr -->
+           <div class="flex flex-col items-center flex-1">
+            <div class="bg-brand-blue w-full max-w-[40px] h-10 rounded-sm"></div>
+            <span class="text-xs text-gray-400 mt-2">Abr</span>
+          </div>
+          <!-- Mai -->
+          <div class="flex flex-col items-center flex-1">
+            <div class="bg-brand-blue w-full max-w-[40px] h-20 rounded-sm"></div>
+            <span class="text-xs text-gray-400 mt-2">Mai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-2xl p-5 card-shadow" data-purpose="comparison-card">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Comparação entre períodos</h2>
+      <div class="flex divide-x divide-gray-100">
+        <div class="flex-1 text-center pr-2">
+          <p class="text-[11px] text-gray-400 mb-1">Últimos 3 meses</p>
+          <p class="text-2xl font-black text-gray-800">44mil L</p>
+          <p class="text-[11px] text-gray-400">média</p>
+        </div>
+        
+        <div class="flex-1 text-center pl-2">
+          <p class="text-[11px] text-gray-400 mb-1">3 meses anteriores</p>
+          <p class="text-2xl font-black text-gray-800">54mil L</p>
+          <p class="text-[11px] text-gray-400">média</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-2xl p-5 card-shadow" data-purpose="history-list">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Histórico de Contas</h2>
+      <div class="space-y-6">
+        <!-- Jan -->
+         <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-semibold text-gray-700">Jan</span>
+          </div>
+          <div class="flex-1 text-right pr-6">
+            <span class="text-sm text-gray-300">145mil L</span>
+          </div>
+          <div class="text-sm font-bold text-gray-800">R$ 148,90</div>
+        </div>
+        <!-- Fev -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-semibold text-gray-700">Fev</span>
+          </div>
+          <div class="flex-1 text-right pr-6">
+            <span class="text-sm text-gray-300">102mil L</span>
+          </div>
+          <div class="text-sm font-bold text-gray-800">R$ 108,80</div>
+        </div>
+        <!-- Mar -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-semibold text-gray-700">Mar</span>
+          </div>
+          <div class="flex-1 text-right pr-6">
+            <span class="text-sm text-gray-300">128mil L</span>
+          </div>
+          <div class="text-sm font-bold text-gray-800">R$ 125,00</div>
+        </div>
+        <!-- Abr -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-semibold text-gray-700">Abr</span>
+          </div>
+          <div class="flex-1 text-right pr-6">
+            <span class="text-sm text-gray-300">178mil L</span>
+          </div>
+          <div class="text-sm font-bold text-gray-800">R$ 256,60</div>
+        </div>
+        <!-- Mai -->
+         <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <svg class="h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-semibold text-gray-700">Mai</span>
+          </div>
+          <div class="flex-1 text-right pr-6">
+            <span class="text-sm text-gray-300">165mil L</span>
+          </div>
+          <div class="text-sm font-bold text-gray-800">R$ 170,90</div>
+        </div>
+      </div>
+    </div>
+    <section class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100" data-purpose="regional-comparison">
+      <div class="flex items-center mb-4">
+        <h2 class="text-lg font-bold text-[#1d2b4b]">
+          Consumo
+        </h2>
+        <div
+          onclick="window.location.href='informacooeess.html'"
+          class="cursor-pointer ml-1">
+          <span class="material-symbols-outlined text-[#2196F3] text-lg">
+            help
+          </span>
+        </div>
+      </div>
+      <div class="space-y-12 pb-4">
+        <div class="relative pt-8">
+          <div class="absolute top-0 left-[15%] -translate-x-1/2 flex flex-col items-center">
+            <span class="text-xs font-bold text-gray-800">R$: 180,89</span>
+            <span class="material-symbols-outlined text-gray-800 text-sm leading-none">keyboard_arrow_down</span>
+          </div>
+          <div class="h-10 w-full rounded-full bg-gradient-to-r from-[#76FF03] via-[#FFEB3B] to-[#FF3D00] shadow-inner"></div>
+          <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm font-medium text-gray-800">Seu consumo</div>
+        </div>
+        
+        <div class="relative pt-8">
+          <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm font-medium text-gray-800">Sua região</div>
+          <div class="h-10 w-full rounded-full bg-gradient-to-r from-[#76FF03] via-[#FFEB3B] to-[#FF3D00] shadow-inner"></div>
+          <div class="absolute bottom-[-32px] left-[75%] -translate-x-1/2 flex flex-col items-center">
+            <span class="material-symbols-outlined text-gray-800 text-sm leading-none">keyboard_arrow_up</span>
+            <span class="text-xs font-bold text-gray-800">R$: 560,49</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="bg-white rounded-2xl p-5 card-shadow mb-8" data-purpose="total-summary">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-500">Total do período:</span>
+        <span class="text-lg font-bold text-gray-800">R$ 619,90</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-gray-500">Média mensal:</span>
+        <span class="text-lg font-bold text-gray-800">R$ 124,80</span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+  function animarEIr(destino){
+    document.body.style.opacity = "0";
+
+    setTimeout(() => {
+        window.location.href = destino;
+    }, 400);
+  }
+</script>
+
+</body></html>

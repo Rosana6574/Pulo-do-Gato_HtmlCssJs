@@ -1,0 +1,157 @@
+
+
+<!DOCTYPE html>
+
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resultado da Região</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#005eb8",
+                        "surface-dim": "#d8dae2",
+                        "on-secondary-fixed-variant": "#1565C0",
+                        "on-secondary-fixed": "#001c3b",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff0f8",
+                        "surface": "#f9f9ff",
+                        "on-surface-variant": "#424752",
+                        "primary-fixed": "#d6e3ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#9f4300",
+                        "tertiary": "#793100",
+                        "on-secondary-container": "#1565C0",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#95bdfd",
+                        "on-secondary": "#ffffff",
+                        "outline": "#727783",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "inverse-surface": "#2e3037",
+                        "on-primary-container": "#c8daff",
+                        "surface-variant": "#e1e2ea",
+                        "secondary": "#345f99",
+                        "on-primary-fixed": "#001b3d",
+                        "tertiary-fixed": "#ffdbcb",
+                        "secondary-fixed": "#d5e3ff",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e7e8f0",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "on-tertiary-fixed": "#341100",
+                        "on-primary-fixed-variant": "#1565C0",
+                        "on-tertiary-container": "#ffcfb9",
+                        "surface-container-low": "#f2f3fb",
+                        "on-background": "#191c21",
+                        "background": "#f9f9ff",
+                        "surface-tint": "#1565C0",
+                        "surface-container": "#ecedf6",
+                        "on-tertiary-fixed-variant": "#793100",
+                        "outline-variant": "#c2c6d4",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#1565C0",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-highest": "#e1e2ea",
+                        "secondary-fixed-dim": "#a7c8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#191c21",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#a9c7ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "margin": "20px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h3": ["Inter"],
+                        "caption": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "h3": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+</script>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+</style>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col">
+    <header class="flex items-center justify-between px-margin py-4 w-full h-16 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container shadow-md fixed top-0 z-50">
+        <div class="flex items-center gap-4">
+            <button 
+                class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-primary-container/20 transition-transform active:scale-95 duration-200"
+                onclick="window.location.href='telaprincipal.html'"
+                data-purpose="back-navigation">
+                
+                <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+            </button>
+
+            <h1 class="font-h2 text-h2 text-on-primary">Informações</h1>
+        </div>
+        <div class="w-10"></div> 
+    </header>
+    
+    <main class="flex-grow flex items-center justify-center px-margin pt-24 pb-20">
+        
+        <section class="w-full max-w-md bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-outline-variant p-lg flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mb-md">
+                <span class="material-symbols-outlined text-primary text-[32px]" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+            </div>
+            
+            <h2 class="font-h1 text-h1 text-on-surface mb-sm">sua região</h2>
+            
+            <div class="w-16 h-1 bg-primary-container/20 rounded-full mb-lg"></div>
+            
+            <div class="w-full h-48 rounded-lg overflow-hidden mb-lg relative group">
+                <img alt="Map Representation" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" data-alt="A clean, minimalist aerial map view of an organized urban infrastructure grid. The aesthetic is monochromatic and high-key, using soft greys and pristine whites to match a modern corporate light-mode UI. Gentle blue highlights trace the main arteries of the city, evoking a sense of data and utility management. The lighting is bright and even, reinforcing a mood of transparency and efficiency." src="https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/06/recife-1.png?w=872"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent"></div>
+            </div>
+            
+            <a class="flex items-center gap-2 text-primary hover:text-primary-container transition-colors group" href="https://www.ibge.gov.br/" target="_blank">
+                <span class="font-label-md text-label-md">Fonte: https://www.ibge.gov.br/</span>
+                <span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" data-icon="open_in_new">open_in_new</span>
+            </a>
+        </section>
+    </main>
+
+</nav>
+</body></html>

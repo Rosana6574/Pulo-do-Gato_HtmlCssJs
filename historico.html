@@ -1,0 +1,554 @@
+
+
+<!DOCTYPE html>
+
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Histórico de Consumo</title>
+<!-- Tailwind CSS v3 CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="custom-colors">
+  :root {
+    --primary-blue: #1565C0;
+    --bg-gray: #F5F7FA;
+    --text-gray-muted: #9E9E9E;
+    --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+</style>
+<style data-purpose="layout-adjustments">
+  body {
+  background-color: var(--bg-gray);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .chart-container {
+    height: 120px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-bottom: 4px; 
+  }
+  .bar {
+    background-color: var(--primary-blue);
+    width: 16%;
+    border-radius: 2px 2px 0 0;
+  }
+  .gradient-bar {
+    height: 8px;
+    background: linear-gradient(to right, #4CAF50, #FFC107, #F44336);
+    border-radius: 4px;
+    position: relative;
+  }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head>
+<body class="min-h-screen" class="transition-opacity duration-500">
+  <header class="bg-[#1565C0] text-white p-4 flex items-center sticky top-0 z-50">
+    <a href="telaprincipal.html" aria-label="Voltar" class="mr-4">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+      </svg>
+    </a>
+    <h1 class="text-xl font-semibold flex-grow text-center mr-8">Histórico de consumo</h1>
+  </header>
+  
+  <main class="p-4 space-y-4">
+    
+    <div class="flex bg-white rounded-full p-1 shadow-sm border border-gray-200" data-purpose="category-toggle">
+
+      <button 
+        class="flex-1 flex items-center justify-center py-2 px-4 rounded-full bg-[#1565C0] text-white font-medium transition-all duration-500">
+        Energia
+      </button>
+      <button 
+        onclick="animarEIr('historicoo.html')"
+        class="flex-1 flex items-center justify-center py-2 px-4 rounded-full text-gray-400 font-medium transition-all duration-500 hover:bg-blue-100 hover:text-[#1565C0]">
+        Água
+      </button>
+    
+    </div>
+    
+    <section class="bg-white rounded-2xl p-5 shadow-sm" data-purpose="monthly-chart-card">
+      <h2 class="text-lg font-bold text-gray-800 mb-6">Consumo por mês</h2>
+      <div class="flex">
+        <div class="flex flex-col justify-between text-[10px] text-gray-400 pr-2 h-[120px] pb-1">
+          <span>180</span>
+          <span>135</span>
+          <span>90</span>
+          <span>45</span>
+          <span>0</span>
+        </div>
+        
+        <div class="flex-grow">
+          <div class="chart-container border-l border-b border-gray-100 px-2">
+            <div class="bar" style="height: 85%;"></div>
+            <div class="bar" style="height: 70%;"></div>
+            <div class="bar" style="height: 85%;"></div>
+            <div class="bar" style="height: 65%;"></div>
+            <div class="bar" style="height: 55%;"></div>
+          </div>
+          
+          <div class="flex justify-between px-2 mt-2 text-[11px] text-gray-400">
+            <span class="w-1/5 text-center">Jan</span>
+            <span class="w-1/5 text-center">Fev</span>
+            <span class="w-1/5 text-center">Mar</span>
+            <span class="w-1/5 text-center">Abr</span>
+            <span class="w-1/5 text-center">Mai</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="bg-white rounded-2xl p-5 shadow-sm" data-purpose="comparison-card">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Comparação entre períodos</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-xs text-gray-400 mb-1">Últimos 3 meses</p>
+          <p class="text-xl font-bold text-gray-900">157 kWh</p>
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider">média</p>
+        </div>
+        <div class="border-l border-gray-100 pl-4">
+          <p class="text-xs text-gray-400 mb-1">3 meses anteriores</p>
+          <p class="text-xl font-bold text-gray-900">125 kWh</p>
+          <p class="text-[10px] text-gray-400 uppercase tracking-wider">média</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+      <div class="flex items-center mb-4">
+        <h2 class="text-lg font-bold text-[#1d2b4b]">Consumo de energia</h2>
+      </div>
+      
+      <canvas id="graficoConsumo" height="250"></canvas>
+    </section>
+    
+    <section class="bg-white rounded-2xl p-5 shadow-sm" data-purpose="bills-history">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Histórico de Contas</h2>
+      <div class="space-y-4">
+        <!-- Jan -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <svg class="h-4 w-4 text-gray-300 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-800">Jan</span>
+          </div>
+          <div class="flex items-center space-x-6">
+            <span class="text-xs text-gray-300">145 kWh</span>
+            <span class="text-sm font-bold text-gray-900">R$ 125,50</span>
+          </div>
+        </div>
+        <!-- Fev -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <svg class="h-4 w-4 text-gray-300 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-800">Fev</span>
+          </div>
+          <div class="flex items-center space-x-6">
+            <span class="text-xs text-gray-300">102 kWh</span>
+            <span class="text-sm font-bold text-gray-900">R$ 142,80</span>
+          </div>
+        </div>
+        <!-- Mar -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <svg class="h-4 w-4 text-gray-300 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-800">Mar</span>
+          </div>
+          <div class="flex items-center space-x-6">
+            <span class="text-xs text-gray-300">128 kWh</span>
+            <span class="text-sm font-bold text-gray-900">R$ 118,20</span>
+          </div>
+        </div>
+        <!-- Abr -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <svg class="h-4 w-4 text-gray-300 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-800">Abr</span>
+          </div>
+          <div class="flex items-center space-x-6">
+            <span class="text-xs text-gray-300">178 kWh</span>
+            <span class="text-sm font-bold text-gray-900">R$ 156,40</span>
+          </div>
+        </div>
+        <!-- Mai -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <svg class="h-4 w-4 text-gray-300 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-800">Mai</span>
+          </div>
+          <div class="flex items-center space-x-6">
+            <span class="text-xs text-gray-300">165 kWh</span>
+            <span class="text-sm font-bold text-gray-900">R$ 180,00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100" data-purpose="regional-comparison">
+      <div class="flex items-center mb-4">
+        <h2 class="text-lg font-bold text-[#1d2b4b]">Consumo</h2>
+        <div
+          onclick="window.location.href='informacooeess.html'"
+          class="cursor-pointer ml-1">
+          <span class="material-symbols-outlined text-[#2196F3] text-lg">
+            help
+          </span>
+        </div>
+      </div>
+      
+      <div class="space-y-12 pb-4">
+        <div class="relative pt-8">
+          <div id="marcadorConsumo"
+          class="absolute top-0 left-[10%] -translate-x-1/2 flex flex-col items-center">
+          <span id="valorConsumo" class="text-xs font-bold text-gray-800">
+            R$: 0,00 
+          </span>
+          <span class="material-symbols-outlined text-gray-800 text-sm leading-none">
+            keyboard_arrow_down
+          </span>
+        </div>
+        <div class="h-10 w-full rounded-full bg-gradient-to-r from-[#76FF03] via-[#FFEB3B] to-[#FF3D00] shadow-inner">
+        </div>
+        <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm font-medium text-gray-800">
+          Seu consumo
+        </div>
+      </div>
+        
+        <div class="relative pt-8">
+          <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-sm font-medium text-gray-800">Sua região</div>
+          <div class="h-10 w-full rounded-full bg-gradient-to-r from-[#76FF03] via-[#FFEB3B] to-[#FF3D00] shadow-inner"></div>
+          <div class="absolute bottom-[-32px] left-[75%] -translate-x-1/2 flex flex-col items-center">
+            <span class="material-symbols-outlined text-gray-800 text-sm leading-none">keyboard_arrow_up</span>
+            <span class="text-xs font-bold text-gray-800">R$: 560,49</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="bg-white rounded-2xl p-5 shadow-sm mb-6" data-purpose="period-summary"><div class="flex justify-between items-center pb-3 border-b border-gray-50">
+      <span class="text-sm text-gray-500">Total do período:</span>
+      <span class="text-lg font-bold text-gray-900">R$ 619,90</span>
+    </div>
+    <div class="flex justify-between items-center pt-3">
+      <span class="text-sm text-gray-500">Média mensal:</span>
+      <span class="text-lg font-bold text-gray-900">R$ 124,80</span>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+function animarEIr(destino){
+
+    document.body.style.opacity = "0";
+
+    setTimeout(() => {
+        window.location.href = destino;
+    },400);
+
+}
+
+
+window.onload = function(){
+
+    // VALOR CALCULADO
+    const valorCalculado =
+    parseFloat(
+        localStorage.getItem(
+            "valorConta"
+        )
+    ) || 180.89;
+
+
+    // DATA SALVA
+    const dataCalculada =
+    localStorage.getItem(
+        "dataMedicao"
+    ) || "09/05/2026";
+
+
+    // MOSTRAR VALOR NO TERMÔMETRO
+    document.getElementById(
+        "valorConsumo"
+    ).textContent =
+    "R$: " +
+    valorCalculado.toFixed(2);
+
+
+
+    // MOVIMENTAR TERMÔMETRO
+
+    const marcador =
+    document.getElementById(
+        "marcadorConsumo"
+    );
+
+
+    // VALOR MÁXIMO DA ESCALA
+    const maximo = 600;
+
+
+    let porcentagem =
+    (
+        valorCalculado /
+        maximo
+    ) * 100;
+
+
+    // LIMITES
+
+    if(porcentagem < 5){
+
+        porcentagem = 5;
+
+    }
+
+
+    if(porcentagem > 95){
+
+        porcentagem = 95;
+
+    }
+
+
+    marcador.style.left =
+    porcentagem + "%";
+
+
+
+    // GERA PREÇOS
+
+    function gerarPreco(base){
+
+        return (
+
+            base +
+
+            (
+                Math.random() * 150
+                - 50
+            )
+
+        ).toFixed(2);
+
+    }
+
+
+
+    // DATA ATUAL
+
+    const hoje =
+    new Date();
+
+
+    const dia =
+    String(
+        hoje.getDate()
+    ).padStart(
+        2,
+        "0"
+    );
+
+
+    const mes =
+    String(
+        hoje.getMonth()+1
+    ).padStart(
+        2,
+        "0"
+    );
+
+
+    const ano =
+    hoje.getFullYear();
+
+
+    const dataAtual =
+    `${dia}/${mes}/${ano}`;
+
+
+
+    // DATAS DO GRÁFICO
+
+    const datas = [
+
+        dataCalculada,
+
+        dataAtual,
+
+        "15/03/2026",
+
+        "18/02/2026"
+
+    ];
+
+
+
+    // VALORES DO GRÁFICO
+
+    const valores = [
+
+        valorCalculado,
+
+        gerarPreco(
+            valorCalculado
+        ),
+
+        gerarPreco(
+            valorCalculado
+        ),
+
+        gerarPreco(
+            valorCalculado
+        )
+
+    ];
+
+
+
+    // CRIAR GRÁFICO
+
+    const ctx = document
+    .getElementById(
+        "graficoConsumo"
+    )
+    .getContext(
+        "2d"
+    );
+
+
+
+    new Chart(
+        ctx,
+        {
+
+        type:"line",
+
+        data:{
+
+            labels:datas,
+
+            datasets:[{
+
+                label:
+                "Consumo",
+
+                data:
+                valores,
+
+                borderColor:
+                "#1565C0",
+
+                backgroundColor:
+                "rgba(21,101,192,0.15)",
+
+                tension:
+                0.4,
+
+                fill:
+                true,
+
+                pointRadius:
+                6,
+
+                pointHoverRadius:
+                8,
+
+                pointBackgroundColor:
+                "#1565C0",
+
+                pointBorderColor:
+                "#fff",
+
+                pointBorderWidth:
+                2
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            plugins:{
+
+                legend:{
+
+                    display:false
+
+                },
+
+                tooltip:{
+
+                    callbacks:{
+
+                        label:
+                        function(
+                            context
+                        ){
+
+                            return (
+
+                                "R$ " +
+
+                                context.raw
+
+                            );
+
+                        }
+
+                    }
+
+                }
+
+            },
+
+            scales:{
+
+                y:{
+
+                    beginAtZero:false,
+
+                    ticks:{
+
+                        callback:
+                        function(
+                            value
+                        ){
+
+                            return (
+
+                                "R$ " +
+
+                                value
+
+                            );
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
+</script>
+
+</body></html>
